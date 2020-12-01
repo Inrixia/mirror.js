@@ -3,14 +3,13 @@ const chokidar = require("chokidar");
 
 const ss = require("socket.io-stream");
 
-module.exports = (hostname, folder, chokidarOptions) => {
+module.exports = (hostname, folder, ignoreInitial) => {
 	const watcher = chokidar.watch(folder, {
-		ignoreInitial: true, 
+		ignoreInitial, 
 		awaitWriteFinish: {
 			stabilityThreshold: 1000,
 			pollInterval: 500
-		},
-		...chokidarOptions
+		}
 	});
 	
 	const socket = (require("socket.io-client"))(hostname);
